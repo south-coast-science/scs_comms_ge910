@@ -1,16 +1,16 @@
-'''
+"""
 Created on 28 Dec 2016
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
-'''
+"""
 
 
 # --------------------------------------------------------------------------------------------------------------------
 
 class ATCommand(object):
-    '''
+    """
     classdocs
-    '''
+    """
 
     DEFAULT_TIMEOUT =       1
 
@@ -43,9 +43,9 @@ class ATCommand(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def __init__(self, cmd, timeout, attempts=1):
-        '''
+        """
         Constructor
-        '''
+        """
         self.__cmd = cmd
         self.__timeout = timeout
         self.__attempts = attempts

@@ -1,8 +1,8 @@
-'''
+"""
 Created on 27 Dec 2016
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
-'''
+"""
 
 from collections import OrderedDict
 
@@ -12,9 +12,9 @@ from scs_core.data.json import JSONable
 # --------------------------------------------------------------------------------------------------------------------
 
 class ATResponse(JSONable):
-    '''
+    """
     classdocs
-    '''
+    """
 
     RESULT_CODES = ['OK', 'ERROR', 'CONNECT', 'NO CARRIER']
 
@@ -34,9 +34,9 @@ class ATResponse(JSONable):
     # ----------------------------------------------------------------------------------------------------------------
 
     def __init__(self, cmd, items, code):
-        '''
+        """
         Constructor
-        '''
+        """
         self.__cmd = cmd
         self.__items = items
         self.__code = code

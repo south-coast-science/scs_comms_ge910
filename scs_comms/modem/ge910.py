@@ -1,8 +1,8 @@
-'''
+"""
 Created on 27 Dec 2016
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
-'''
+"""
 
 import time
 
@@ -20,9 +20,9 @@ from scs_host.sys.host_serial import HostSerial
 # --------------------------------------------------------------------------------------------------------------------
 
 class GE910(object):
-    '''
+    """
     Telit GE910 GSM modem
-    '''
+    """
 
     ON_OFF =            "P8_39"         # active high
     HW_SHUTDOWN =       "P8_40"         # active high
