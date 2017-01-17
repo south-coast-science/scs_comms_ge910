@@ -40,12 +40,12 @@ try:
         if len(text) > 0:
             command = ATCommand.construct(text)     # use previous command on empty text
 
-        comman_start_time = time.time()
+        command_start_time = time.time()
         response = modem.execute(command)
         print(response)
         print("-")
 
-        command_time = time.time() - comman_start_time
+        command_time = time.time() - command_start_time
         print("cmd time: %6.3f" % command_time)
         print("")
 
