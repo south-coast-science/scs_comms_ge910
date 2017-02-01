@@ -16,11 +16,7 @@ class PCA8574(object):
     """
     NXP remote 8-bit I/O expander
     """
-    __CMD_RESET =           0x30a2
-    __CMD_CLEAR =           0x3041
-
-    __CMD_READ_SINGLE =     0x2c06
-    __CMD_READ_STATUS =     0xf32d
+    _ADDR =                 0x38            # PCA8574: 0x30 + addr, PCA8574A: 0x38 + addr
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -53,45 +49,9 @@ class PCA8574(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def reset(self):
-        try:
-            I2C.start_tx(self.__addr)
-            I2C.write16(PCA8574.__CMD_RESET)
-            time.sleep(0.001)
-
-            I2C.write16(PCA8574.__CMD_CLEAR)
-            time.sleep(0.001)
-
-        finally:
-            I2C.end_tx()
-
-
-    def sample(self):
-        try:
-            I2C.start_tx(self.__addr)
-            temp_msb, temp_lsb, _, humid_msb, humid_lsb, _ = I2C.read_cmd16(PCA8574.__CMD_READ_SINGLE, 6)
-
-            raw_humid = (humid_msb << 8) | humid_lsb
-            raw_temp = (temp_msb << 8) | temp_lsb
-
-            return SHTDatum(PCA8574.humid(raw_humid), PCA8574.temp(raw_temp))
-
-        finally:
-            I2C.end_tx()
 
 
     # ----------------------------------------------------------------------------------------------------------------
-
-    @property
-    def status(self):
-        try:
-            I2C.start_tx(self.__addr)
-            status_msb, status_lsb, _ = I2C.read_cmd16(PCA8574.__CMD_READ_STATUS, 3)
-
-            return (status_msb << 8) | status_lsb
-
-        finally:
-            I2C.end_tx()
 
 
     # ----------------------------------------------------------------------------------------------------------------

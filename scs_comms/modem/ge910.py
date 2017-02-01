@@ -6,8 +6,6 @@ Created on 27 Dec 2016
 
 import time
 
-import Adafruit_BBIO.GPIO as GPIO
-
 from scs_comms.modem.at_command import ATCommand
 from scs_comms.modem.at_response import ATResponse
 
@@ -70,16 +68,16 @@ class GE910(object):
         Lock.acquire(self.__lock_name(GE910.__LOCK_PWR), GE910.__LOCK_TIMEOUT, False)
 
         # GPIO...
-        self.__on_off = HostGPO(GE910.ON_OFF, GPIO.LOW)
-        self.__hw_shutdown = HostGPO(GE910.HW_SHUTDOWN, GPIO.LOW)
+        self.__on_off = HostGPO(GE910.ON_OFF, HostGPO.LOW)
+        self.__hw_shutdown = HostGPO(GE910.HW_SHUTDOWN, HostGPO.LOW)
 
         self.__serial = HostSerial(GE910.UART, GE910.__BAUD_RATE, True)
 
         # power...
-        self.__on_off.state = GPIO.HIGH
+        self.__on_off.state = HostGPO.HIGH
         time.sleep(6)
 
-        self.__on_off.state = GPIO.LOW
+        self.__on_off.state = HostGPO.LOW
         time.sleep(1)
 
         # TODO: test pwmon
@@ -94,10 +92,10 @@ class GE910(object):
 
     def switch_off(self):
         # power...
-        self.__on_off.state = GPIO.HIGH
+        self.__on_off.state = HostGPO.HIGH
         time.sleep(3)
 
-        self.__on_off.state = GPIO.LOW
+        self.__on_off.state = HostGPO.LOW
         time.sleep(1)
 
         # TODO: test pwmon
