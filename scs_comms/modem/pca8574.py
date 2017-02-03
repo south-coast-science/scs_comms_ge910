@@ -4,8 +4,6 @@ Created on 1 Feb 2017
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 """
 
-import time
-
 from scs_host.bus.i2c import I2C
 
 
@@ -21,37 +19,31 @@ class PCA8574(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    @staticmethod
-    def humid(raw_humid):
-        humid = raw_humid / 65535.0
-
-        return 100.0 * humid
-
-
-    @staticmethod
-    def temp(raw_temp):
-        temp = raw_temp / 65535.0
-
-        return -45.0 + (175.0 * temp)
-
-
-    # ----------------------------------------------------------------------------------------------------------------
-
     def __init__(self, addr):
         """
         Constructor
         """
         self.__addr = addr
 
-        self.__raw_temperature = None
-        self.__raw_humidity = None
-
 
     # ----------------------------------------------------------------------------------------------------------------
 
+    def write(self, byte):
+        try:
+            I2C.start_tx(self.__addr)
+            I2C.write(byte)
+        finally:
+            I2C.end_tx()
 
 
-    # ----------------------------------------------------------------------------------------------------------------
+    def read(self):
+        try:
+            I2C.start_tx(self.__addr)
+            byte = I2C.read(1)
+        finally:
+            I2C.end_tx()
+
+        return byte
 
 
     # ----------------------------------------------------------------------------------------------------------------
