@@ -1,5 +1,5 @@
 """
-Created on 1 Feb 2017
+Created on 3 Feb 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 """
@@ -12,10 +12,8 @@ from scs_host.bus.i2c import I2C
 
 class PCA8574(object):
     """
-    NXP remote 8-bit I/O expander
+    NXP PCA8574 remote 8-bit I/O expander
     """
-    _ADDR =                 0x38            # PCA8574: 0x30 + addr, PCA8574A: 0x38 + addr
-
 
     # ----------------------------------------------------------------------------------------------------------------
 

@@ -8,7 +8,7 @@ Created on 3 Feb 2017
 
 import sys
 
-from scs_comms.modem.pca8574 import PCA8574
+from scs_comms.modem.modem import Modem
 
 from scs_host.bus.i2c import I2C
 from scs_host.sys.host import Host
@@ -19,20 +19,14 @@ from scs_host.sys.host import Host
 I2C.open(Host.I2C_SENSORS)
 
 try:
-    io = PCA8574(0x38)
-    print(io)
+    modem = Modem(True)
+    print(modem)
 
-    byte = io.read()
-    print("byte:%02x" % byte)
+    modem.switch_on()
 
-
-    io.write(0xe7)
-
-    byte = io.read()
-    print("byte:%02x" % byte)
 
 except KeyboardInterrupt:
-    print("pca8574_test: terminated", file=sys.stderr)
+    print("modem_test: terminated", file=sys.stderr)
 
 finally:
     I2C.close()

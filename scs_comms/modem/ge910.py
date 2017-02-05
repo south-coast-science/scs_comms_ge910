@@ -6,12 +6,10 @@ Created on 27 Dec 2016
 
 import time
 
-from scs_comms.modem.at_command import ATCommand
 from scs_comms.modem.at_response import ATResponse
 
 from scs_host.lock.lock import Lock
-from scs_host.sys.host_gpi import HostGPI
-from scs_host.sys.host_gpo import HostGPO
+# from scs_host.sys.host_gpi import HostGPI
 from scs_host.sys.host_serial import HostSerial
 
 
@@ -34,7 +32,6 @@ class GE910(object):
 
     __BAUD_RATE =       115200
 
-    __LOCK_PWR =        "PWR"
     __LOCK_TX =         "TX"
 
     __SERIAL_TIMEOUT =  10.0
@@ -50,62 +47,19 @@ class GE910(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def __init__(self, use_led):
-        self.__use_led = use_led
-
-        self.__pwmon = HostGPI(GE910.VAUX)
-
+    def __init__(self):
         self.__serial = None
 
         self.__on_off = None
         self.__hw_shutdown = None
 
+        self.__pwmon = False
+
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def switch_on(self):
-        # lock...
-        Lock.acquire(self.__lock_name(GE910.__LOCK_PWR), GE910.__LOCK_TIMEOUT, False)
-
-        # GPIO...
-        self.__on_off = HostGPO(GE910.ON_OFF, HostGPO.LOW)
-        self.__hw_shutdown = HostGPO(GE910.HW_SHUTDOWN, HostGPO.LOW)
-
+    def setup_serial(self):
         self.__serial = HostSerial(GE910.UART, GE910.__BAUD_RATE, True)
-
-        # power...
-        self.__on_off.state = HostGPO.HIGH
-        time.sleep(6)
-
-        self.__on_off.state = HostGPO.LOW
-        time.sleep(1)
-
-        # TODO: test pwmon
-
-        # LED...
-        if not self.__use_led:
-            return
-
-        cmd = ATCommand("AT#SLED=1", 1.0)
-        self.execute(cmd)
-
-
-    def switch_off(self):
-        # power...
-        self.__on_off.state = HostGPO.HIGH
-        time.sleep(3)
-
-        self.__on_off.state = HostGPO.LOW
-        time.sleep(1)
-
-        # TODO: test pwmon
-
-        # GPIO...
-        self.__serial = None
-
-        # lock...
-        self.end_tx()
-        Lock.release(self.__lock_name(GE910.__LOCK_PWR))
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -176,18 +130,12 @@ class GE910(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def is_on(self):
-        return Lock.exists(self.__lock_name(GE910.__LOCK_PWR))
-
-
-    # ----------------------------------------------------------------------------------------------------------------
-
     @property
     def pwmon(self):
-        return self.__pwmon.state
+        return self.__pwmon
 
 
     # ----------------------------------------------------------------------------------------------------------------
 
     def __str__(self, *args, **kwargs):
-        return "GE910:{use_led:%s, pwmon:%s, serial:%s}" % (self.__use_led, self.pwmon, self.__serial)
+        return "GE910:{pwmon:%s, serial:%s}" % (self.pwmon, self.__serial)
