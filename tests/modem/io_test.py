@@ -28,7 +28,7 @@ try:
 
     print("power:%s" % io.power)
 
-    io.power = IO.LOW
+    io.power = ~io.power
     print("power:%s" % io.power)
 
     state = PCA8574State.load_from_file(IO.FILENAME)
