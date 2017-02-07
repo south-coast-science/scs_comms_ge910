@@ -19,7 +19,6 @@ class IO(object):
     LOW =                   False
 
     ADDR =                  0x38
-    FILENAME =              "modem_io.json"
 
     __MASK_OUTPUT_ENABLE =  0x01            # 0000 0001
     __MASK_VAUX =           0x02            # 0000 0010
@@ -34,6 +33,12 @@ class IO(object):
     __LOCK =                "MODEM_IO"
     __LOCK_TIMEOUT =        2.0
 
+    __FILENAME =            "modem_io.json"
+
+    @classmethod
+    def filename(cls, host):
+        return host.SCS_TMP + cls.__FILENAME
+
 
     # ----------------------------------------------------------------------------------------------------------------
 
@@ -44,11 +49,11 @@ class IO(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def __init__(self):
+    def __init__(self, filename):
         """
         Constructor
         """
-        self.__device = PCA8574.construct(IO.ADDR, IO.FILENAME)      # device is none if it can't be accessed
+        self.__device = PCA8574.construct(IO.ADDR, filename)      # device is none if it can't be accessed
 
 
     # ----------------------------------------------------------------------------------------------------------------
