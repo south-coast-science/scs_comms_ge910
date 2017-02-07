@@ -10,7 +10,6 @@ import sys
 import time
 
 from scs_comms.modem.at_command import ATCommand
-from scs_comms.modem.io import IO
 from scs_comms.modem.modem import Modem
 
 from scs_host.bus.i2c import I2C
@@ -29,9 +28,6 @@ print("-")
 command = ATCommand.construct("")
 
 try:
-    io = IO(IO.filename(Host))
-    print(io)
-
     print("on...")
     modem.switch_on()
     print(modem)

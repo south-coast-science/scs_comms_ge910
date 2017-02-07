@@ -19,22 +19,13 @@ class GE910(object):
     """
     Telit GE910 GSM modem
     """
-
-    ON_OFF =            "P8_39"         # active high
-    HW_SHUTDOWN =       "P8_40"         # active high
-
-    VAUX =              "P8_43"         # active low
-
-    GPIO_02 =           "P8_46"
-    GPIO_03 =           "P8_45"
-
     UART =              4
 
-    BAUD_RATE =       115200
+    BAUD_RATE =         115200
 
     __LOCK_TX =         "TX"
 
-    __SERIAL_TIMEOUT =  10.0
+    __SERIAL_TIMEOUT =  60.0
     __LOCK_TIMEOUT =    60.0
 
 
@@ -49,11 +40,6 @@ class GE910(object):
 
     def __init__(self):
         self.__serial = None
-
-        self.__on_off = None
-        self.__hw_shutdown = None
-
-        self.__pwmon = False
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -94,6 +80,9 @@ class GE910(object):
                     time.sleep(0.1)
 
                 lines = self.__read_text(terminators, command.timeout)
+
+                # print("lines:%s" % lines)
+
                 response = ATResponse.construct(lines)
 
                 if len(terminators) == 1 or response.code == "OK":
@@ -131,12 +120,5 @@ class GE910(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    @property
-    def pwmon(self):
-        return self.__pwmon
-
-
-    # ----------------------------------------------------------------------------------------------------------------
-
     def __str__(self, *args, **kwargs):
-        return "GE910:{pwmon:%s, serial:%s}" % (self.pwmon, self.__serial)
+        return "GE910:{serial:%s}" % self.__serial

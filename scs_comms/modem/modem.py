@@ -61,11 +61,7 @@ class Modem(object):
 
         print("2: %s" % self.__io.state)
 
-        time.sleep(2)
-
-        # TODO: test pwmon
-
-        print("vaux: %s" % self.__io.vaux)
+        time.sleep(4)
 
         self.__ge910.setup_serial()
 
@@ -79,6 +75,10 @@ class Modem(object):
         print("4: %s" % self.__io.state)
 
         time.sleep(1)
+
+        # TODO: test pwmon
+
+        print("vaux: %s" % self.__io.vaux)
 
         # LED...
         if not self.__use_led:
@@ -111,7 +111,7 @@ class Modem(object):
 
         # TODO: test pwmon
 
-        self.__io.power = IO.HIGH
+        # self.__io.power = IO.HIGH
 
         print("4: %s" % self.__io.state)
 
@@ -138,22 +138,6 @@ class Modem(object):
     def end_tx(self):
         Lock.release(self.__lock_name(Modem.__LOCK_PWR))
 
-
-    # ----------------------------------------------------------------------------------------------------------------
-
-    def is_on(self):
-        return Lock.exists(self.__lock_name(Modem.__LOCK_PWR))
-
-
-    # ----------------------------------------------------------------------------------------------------------------
-
-    # TODO: use of the io expander
-
-
-    # ----------------------------------------------------------------------------------------------------------------
-
-    def pwmon(self):
-        pass            #TODO: implement pwmon()
 
     # ----------------------------------------------------------------------------------------------------------------
 
