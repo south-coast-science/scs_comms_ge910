@@ -30,7 +30,7 @@ class GE910(object):
 
     UART =              4
 
-    __BAUD_RATE =       115200
+    BAUD_RATE =       115200
 
     __LOCK_TX =         "TX"
 
@@ -59,7 +59,7 @@ class GE910(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def setup_serial(self):
-        self.__serial = HostSerial(GE910.UART, GE910.__BAUD_RATE, True)
+        self.__serial = HostSerial(GE910.UART, GE910.BAUD_RATE, True)
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -75,6 +75,7 @@ class GE910(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def execute(self, command):
+        print("executing: %s" % command)
         try:
             self.__serial.open(GE910.__SERIAL_TIMEOUT)
 

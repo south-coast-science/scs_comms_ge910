@@ -161,6 +161,17 @@ class IO(object):
             Lock.release(IO.__lock_name(IO.__LOCK))
 
 
+
+    # ----------------------------------------------------------------------------------------------------------------
+
+    @property
+    def state(self):
+        if self.__device is None:
+            return None
+
+        return self.__device.state
+
+
     # ----------------------------------------------------------------------------------------------------------------
 
     def __str__(self, *args, **kwargs):

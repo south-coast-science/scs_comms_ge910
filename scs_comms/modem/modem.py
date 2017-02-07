@@ -8,10 +8,10 @@ import time
 
 from scs_comms.modem.at_command import ATCommand
 from scs_comms.modem.ge910 import GE910
-from scs_comms.modem.pca8574 import PCA8574
+from scs_comms.modem.io import IO
 
 from scs_host.lock.lock import Lock
-from scs_host.sys.host_serial import HostSerial
+from scs_host.sys.host import Host
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ class Modem(object):
     """
     __PCA8574_ADDR =    0x38            # PCA8574: 0x30 + addr, PCA8574A: 0x38 + addr
 
-    __LOCK_PWR =        "MODEM_PWR"
+    __LOCK_PWR =        "PWR"
     __LOCK_TIMEOUT =    60.0
 
 
@@ -42,61 +42,101 @@ class Modem(object):
         self.__use_led = use_led
 
         self.__ge910 = GE910()
-        self.__io = PCA8574(Modem.__PCA8574_ADDR)
+        self.__io = IO(IO.filename(Host))
 
 
     # ----------------------------------------------------------------------------------------------------------------
 
     def switch_on(self):
         # lock...
-        Lock.acquire(self.__lock_name(Modem.__LOCK_PWR), Modem.__LOCK_TIMEOUT, False)
+        self.start_tx()
 
-        # power
-        self.__io.write(0xff)       # 1111 1111
-        time.sleep(1)
+        print("vaux: %s" % self.__io.vaux)
 
-        # serial...
-        self.__serial = HostSerial(GE910.UART, GE910.__BAUD_RATE, True)
+        print("1: %s" % self.__io.state)
 
-        # on_off...
-        self.__io.write(0xf7)       # 1111 0111
-        time.sleep(6)
+        # io...
+        self.__io.power = IO.LOW
+        self.__io.output_enable = IO.HIGH
 
-        self.__io.write(0xff)       # 1111 1111
-        time.sleep(1)
+        print("2: %s" % self.__io.state)
+
+        time.sleep(2)
 
         # TODO: test pwmon
+
+        print("vaux: %s" % self.__io.vaux)
+
+        self.__ge910.setup_serial()
+
+        self.__io.on_off = IO.LOW
+        print("3: %s" % self.__io.state)
+
+        time.sleep(6)
+
+        # power...
+        self.__io.on_off = IO.HIGH
+        print("4: %s" % self.__io.state)
+
+        time.sleep(1)
 
         # LED...
         if not self.__use_led:
             return
 
+        print("setting LED...")
         cmd = ATCommand("AT#SLED=1", 1.0)
         self.execute(cmd)
 
 
     def switch_off(self):
-        # on_off...
-        self.__io.write(0xf7)       # 1111 0111
-        time.sleep(6)
+        print("vaux: %s" % self.__io.vaux)
 
-        self.__io.write(0xff)       # 1111 1111
-        time.sleep(1)
+        print("1: %s" % self.__io.state)
+
+        # on_off...
+        self.__io.on_off = IO.LOW
+
+        print("2: %s" % self.__io.state)
+
+        time.sleep(4)
+
+        self.__io.on_off = IO.HIGH
+
+        print("3: %s" % self.__io.state)
+
+        time.sleep(2)
+
+        print("vaux: %s" % self.__io.vaux)
 
         # TODO: test pwmon
+
+        self.__io.power = IO.HIGH
+
+        print("4: %s" % self.__io.state)
 
         # GPIO...
         self.__serial = None
 
         # lock...
         self.__ge910.end_tx()
-        Lock.release(self.__lock_name(Modem.__LOCK_PWR))
+        self.end_tx()
 
 
     # ----------------------------------------------------------------------------------------------------------------
 
     def execute(self, command):
-        self.__ge910.execute(command)
+        return self.__ge910.execute(command)
+
+
+    # ----------------------------------------------------------------------------------------------------------------
+
+    def start_tx(self):
+        Lock.acquire(self.__lock_name(Modem.__LOCK_PWR), Modem.__LOCK_TIMEOUT, False)
+
+
+    def end_tx(self):
+        Lock.release(self.__lock_name(Modem.__LOCK_PWR))
 
 
     # ----------------------------------------------------------------------------------------------------------------
