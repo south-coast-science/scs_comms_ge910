@@ -8,6 +8,7 @@ Created on 3 Feb 2017
 
 import sys
 
+from scs_comms.modem.io import IO
 from scs_comms.modem.pca8574 import PCA8574
 
 from scs_host.bus.i2c import I2C
@@ -19,14 +20,20 @@ from scs_host.sys.host import Host
 I2C.open(Host.I2C_SENSORS)
 
 try:
-    io = PCA8574(0x38)
+    io = PCA8574.construct(IO.ADDR, IO.FILENAME)
     print(io)
 
     byte = io.read()
     print("byte:%02x" % byte)
 
 
-    io.write(0xe7)
+    io.write(0xf7)
+
+    byte = io.read()
+    print("byte:%02x" % byte)
+
+
+    io.write(0xff)
 
     byte = io.read()
     print("byte:%02x" % byte)
