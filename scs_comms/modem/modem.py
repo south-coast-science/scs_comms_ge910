@@ -128,7 +128,7 @@ class Modem(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def start_tx(self):
-        Lock.acquire(self.__lock_name(Modem.__LOCK_PWR), Modem.__LOCK_TIMEOUT, False)
+        Lock.acquire(self.__lock_name(Modem.__LOCK_PWR), Modem.__LOCK_TIMEOUT)
 
 
     def end_tx(self):

@@ -51,7 +51,7 @@ class GE910(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def start_tx(self):
-        Lock.acquire(self.__lock_name(GE910.__LOCK_TX), GE910.__LOCK_TIMEOUT, False)
+        Lock.acquire(self.__lock_name(GE910.__LOCK_TX), GE910.__LOCK_TIMEOUT)
 
 
     def end_tx(self):

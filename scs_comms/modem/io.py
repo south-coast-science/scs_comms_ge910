@@ -129,7 +129,7 @@ class IO(object):
         if self.__device is None:
             return None
 
-        Lock.acquire(IO.__lock_name(IO.__LOCK), IO.__LOCK_TIMEOUT, False)
+        Lock.acquire(IO.__lock_name(IO.__LOCK), IO.__LOCK_TIMEOUT)
 
         try:
             byte = self.__device.state.byte
@@ -144,7 +144,7 @@ class IO(object):
         if self.__device is None:
             return
 
-        Lock.acquire(IO.__lock_name(IO.__LOCK), IO.__LOCK_TIMEOUT, False)
+        Lock.acquire(IO.__lock_name(IO.__LOCK), IO.__LOCK_TIMEOUT)
 
         try:
             byte = self.__device.state.byte
