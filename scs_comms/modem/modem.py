@@ -49,7 +49,7 @@ class Modem(object):
         # lock...
         self.start_tx()
 
-        print("vaux: %s" % self.__io.vaux)
+        print("pwmon: %s" % self.__io.pwmon)
 
         print("1: %s" % self.__io.state)
 
@@ -76,7 +76,7 @@ class Modem(object):
 
         # TODO: test pwmon
 
-        print("vaux: %s" % self.__io.vaux)
+        print("pwmon: %s" % self.__io.pwmon)
 
         # LED...
         if not self.__use_led:
@@ -88,7 +88,7 @@ class Modem(object):
 
 
     def switch_off(self):
-        print("vaux: %s" % self.__io.vaux)
+        print("pwmon: %s" % self.__io.pwmon)
 
         print("1: %s" % self.__io.state)
 
@@ -105,7 +105,7 @@ class Modem(object):
 
         time.sleep(2)
 
-        print("vaux: %s" % self.__io.vaux)
+        print("pwmon: %s" % self.__io.pwmon)
 
         # TODO: test pwmon
 

@@ -21,7 +21,7 @@ class IO(object):
     ADDR =                  0x38
 
     __MASK_OUTPUT_ENABLE =  0x01            # 0000 0001
-    __MASK_VAUX =           0x02            # 0000 0010
+    __MASK_PWMON =          0x02            # 0000 0010
     __MASK_POWER =          0x04            # 0000 0100
 
     __MASK_ON_OFF =         0x08            # 0000 1000
@@ -103,17 +103,17 @@ class IO(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     @property
-    def vaux(self):
-        return self.__get_input(IO.__MASK_VAUX)
+    def pwmon(self):                                            # active high
+        return self.__get_input(IO.__MASK_PWMON)
 
 
     @property
-    def gpio_02(self):
+    def gpio_02(self):                                          # not assigned
         return self.__get_input(IO.__MASK_GPIO_02)
 
 
     @property
-    def gpio_03(self):
+    def gpio_03(self):                                          # not assigned
         return self.__get_input(IO.__MASK_GPIO_03)
 
 
