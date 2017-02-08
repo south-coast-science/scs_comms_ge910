@@ -59,7 +59,7 @@ class IO(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     @property
-    def output_enable(self):
+    def output_enable(self):                                    # active high
         return self.__get_output(IO.__MASK_OUTPUT_ENABLE)
 
 
@@ -69,7 +69,7 @@ class IO(object):
 
 
     @property
-    def power(self):
+    def power(self):                                            # active low
         return self.__get_output(IO.__MASK_POWER)
 
 
@@ -81,7 +81,7 @@ class IO(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     @property
-    def on_off(self):
+    def on_off(self):                                           # active low
         return self.__get_output(IO.__MASK_ON_OFF)
 
 
@@ -91,7 +91,7 @@ class IO(object):
 
 
     @property
-    def hw_shutdown(self):
+    def hw_shutdown(self):                                      # active low
         return self.__get_output(IO.__MASK_HW_SHUTDOWN)
 
 

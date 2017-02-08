@@ -20,8 +20,6 @@ class Modem(object):
     """
     Modem with Telit GE910 and NXP PCA8574 remote 8-bit I/O expander
     """
-    __PCA8574_ADDR =    0x38            # PCA8574: 0x30 + addr, PCA8574A: 0x38 + addr
-
     __LOCK_PWR =        "PWR"
     __LOCK_TIMEOUT =    60.0
 
@@ -55,7 +53,7 @@ class Modem(object):
 
         print("1: %s" % self.__io.state)
 
-        # io...
+        # power...
         self.__io.power = IO.LOW
         self.__io.output_enable = IO.HIGH
 
@@ -65,12 +63,12 @@ class Modem(object):
 
         self.__ge910.setup_serial()
 
+        # switch on...
         self.__io.on_off = IO.LOW
         print("3: %s" % self.__io.state)
 
         time.sleep(6)
 
-        # power...
         self.__io.on_off = IO.HIGH
         print("4: %s" % self.__io.state)
 
@@ -94,7 +92,7 @@ class Modem(object):
 
         print("1: %s" % self.__io.state)
 
-        # on_off...
+        # switch off...
         self.__io.on_off = IO.LOW
 
         print("2: %s" % self.__io.state)
@@ -111,12 +109,10 @@ class Modem(object):
 
         # TODO: test pwmon
 
+        # power...
         # self.__io.power = IO.HIGH
 
         print("4: %s" % self.__io.state)
-
-        # GPIO...
-        self.__serial = None
 
         # lock...
         self.__ge910.end_tx()
