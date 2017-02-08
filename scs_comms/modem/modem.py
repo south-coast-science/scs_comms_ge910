@@ -110,7 +110,7 @@ class Modem(object):
         # TODO: test pwmon
 
         # power...
-        # self.__io.power = IO.HIGH
+        self.__io.power = IO.HIGH
 
         print("4: %s" % self.__io.state)
 
