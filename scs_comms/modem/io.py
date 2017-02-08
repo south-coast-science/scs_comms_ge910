@@ -81,7 +81,7 @@ class IO(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     @property
-    def on_off(self):                                           # active low
+    def on_off(self):                                           # active low (on is low)
         return self.__get_output(IO.__MASK_ON_OFF)
 
 
