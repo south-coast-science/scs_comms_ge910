@@ -9,7 +9,6 @@ import time
 from scs_comms.modem.at_response import ATResponse
 
 from scs_host.lock.lock import Lock
-# from scs_host.sys.host_gpi import HostGPI
 from scs_host.sys.host_serial import HostSerial
 
 
@@ -81,7 +80,7 @@ class GE910(object):
 
                 lines = self.__read_text(terminators, command.timeout)
 
-                # print("lines:%s" % lines)
+                print("lines:%s" % lines)
 
                 response = ATResponse.construct(lines)
 
