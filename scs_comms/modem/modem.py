@@ -14,6 +14,8 @@ from scs_host.lock.lock import Lock
 from scs_host.sys.host import Host
 
 
+# TODO: separate board power control from modem power control
+
 # --------------------------------------------------------------------------------------------------------------------
 
 class Modem(object):
