@@ -18,10 +18,10 @@ from scs_host.sys.host import Host
 I2C.open(Host.I2C_SENSORS)
 
 try:
-    io = IO(IO.filename(Host))
+    io = IO()
     print(io)
 
-    state = PCA8574State.load_from_file(IO.filename(Host))
+    state = PCA8574State.load_from_file(IO.filename())
     print(state)
 
     print("power:%s" % io.power)
@@ -29,7 +29,7 @@ try:
     io.power = not io.power
     print("power:%s" % io.power)
 
-    state = PCA8574State.load_from_file(IO.filename(Host))
+    state = PCA8574State.load_from_file(IO.filename())
     print(state)
 
 finally:

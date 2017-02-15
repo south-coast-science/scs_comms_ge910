@@ -11,7 +11,6 @@ from scs_comms.modem.ge910 import GE910
 from scs_comms.modem.io import IO
 
 from scs_host.lock.lock import Lock
-from scs_host.sys.host import Host
 
 
 # TODO: separate board power control from modem power control
@@ -42,7 +41,7 @@ class Modem(object):
         self.__use_led = use_led
 
         self.__ge910 = GE910()
-        self.__io = IO(IO.filename(Host))
+        self.__io = IO()
 
 
     # ----------------------------------------------------------------------------------------------------------------

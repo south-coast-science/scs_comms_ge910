@@ -7,6 +7,7 @@ Created on 6 Feb 2017
 from scs_comms.modem.pca8574 import PCA8574
 
 from scs_host.lock.lock import Lock
+from scs_host.sys.host import Host
 
 
 # --------------------------------------------------------------------------------------------------------------------
@@ -35,9 +36,12 @@ class IO(object):
 
     __FILENAME =            "modem_io.json"
 
+
+    # ----------------------------------------------------------------------------------------------------------------
+
     @classmethod
-    def filename(cls, host):
-        return host.SCS_TMP + cls.__FILENAME
+    def filename(cls):
+        return Host.SCS_TMP + cls.__FILENAME
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -49,11 +53,11 @@ class IO(object):
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    def __init__(self, filename):
+    def __init__(self):
         """
         Constructor
         """
-        self.__device = PCA8574.construct(IO.ADDR, filename)      # device is none if it can't be accessed
+        self.__device = PCA8574.construct(IO.ADDR, self.filename())      # device is none if it can't be accessed
 
 
     # ----------------------------------------------------------------------------------------------------------------
