@@ -18,14 +18,14 @@ class GE910(object):
     """
     Telit GE910 GSM modem
     """
-    UART =              4
 
-    BAUD_RATE =         115200
+    __LOCK_TX =             "TX"
+    __LOCK_TIMEOUT =        60.0
 
-    __LOCK_TX =         "TX"
+    __UART =                4
+    __BAUD_RATE =           115200
 
-    __SERIAL_TIMEOUT =  60.0
-    __LOCK_TIMEOUT =    60.0
+    __SERIAL_TIMEOUT =      60.0
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ class GE910(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def setup_serial(self):
-        self.__serial = HostSerial(GE910.UART, GE910.BAUD_RATE, True)
+        self.__serial = HostSerial(GE910.__UART, GE910.__BAUD_RATE, True)
 
 
     # ----------------------------------------------------------------------------------------------------------------
