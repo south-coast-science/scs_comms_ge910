@@ -14,7 +14,7 @@ class CmdPower(object):
 
     def __init__(self):
         """stuff"""
-        self.__parser = optparse.OptionParser(usage="%prog 1 | 0 [-v]", version="%prog 1.0")
+        self.__parser = optparse.OptionParser(usage="%prog [1 | 0] [-v]", version="%prog 1.0")
 
         # optional...
         self.__parser.add_option("--verbose", "-v", action="store_true", dest="verbose", default=False,
@@ -26,23 +26,33 @@ class CmdPower(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def is_valid(self):
-        if self.power is None:
-            return False
+        if len(self.__args) > 0:
+            try:
+                int(self.__args[0])
+            except RuntimeError:
+                return False
 
         return True
 
 
     # ----------------------------------------------------------------------------------------------------------------
 
-    @property
-    def power(self):
-        try:
-            return bool(int(self.__args[0]))
-        except RuntimeError:
-            return None
+    def set(self):
+        return self.power is not None
 
 
     # ----------------------------------------------------------------------------------------------------------------
+
+    @property
+    def power(self):
+        if len(self.__args) > 0:
+            try:
+                return int(self.__args[0])
+            except RuntimeError:
+                return None
+
+        return None
+
 
     @property
     def verbose(self):

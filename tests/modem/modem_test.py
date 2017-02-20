@@ -30,6 +30,9 @@ command = ATCommand.construct("")
 try:
     print("on...")
     modem.switch_on()
+
+    modem.setup_serial()
+
     print(modem)
     print("-")
 

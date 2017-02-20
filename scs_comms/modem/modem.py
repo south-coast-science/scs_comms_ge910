@@ -87,7 +87,7 @@ class Modem(object):
         # cmd = ATCommand("AT#SHDN", 1.0)
         # self.execute(cmd)
 
-        end_time = time.time() + 15
+        end_time = time.time() + 5      # should be 15
 
         while True:
             # print("pwmon: %s" % self.__io.pwmon)
@@ -110,6 +110,9 @@ class Modem(object):
         self.end_tx()
 
 
+    def setup_serial(self):
+        self.__ge910.setup_serial()
+
 
     # ----------------------------------------------------------------------------------------------------------------
 
@@ -131,7 +134,7 @@ class Modem(object):
 
     @property
     def power(self):
-        return self.__io.power == IO.LOW
+        return 1 if self.__io.power == IO.LOW else 0
 
 
     # ----------------------------------------------------------------------------------------------------------------
