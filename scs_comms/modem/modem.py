@@ -57,7 +57,7 @@ class Modem(object):
         self.__io.output_enable = IO.HIGH
         time.sleep(4)
 
-        self.__ge910.setup_serial()
+        # self.__ge910.setup_serial()
 
         # switch on...
         self.__io.on_off = IO.LOW
@@ -74,18 +74,18 @@ class Modem(object):
         if not self.__use_led:
             return
 
-        cmd = ATCommand("AT#SLED=1", 1.0)
-        self.execute(cmd)
+        # cmd = ATCommand("AT#SLED=1", 1.0)
+        # self.execute(cmd)
 
 
     def switch_off(self):
         # print("pwmon: %s" % self.__io.pwmon)
 
-        self.__ge910.setup_serial()
+        # self.__ge910.setup_serial()
 
         # switch off...
-        cmd = ATCommand("AT#SHDN", 1.0)
-        self.execute(cmd)
+        # cmd = ATCommand("AT#SHDN", 1.0)
+        # self.execute(cmd)
 
         end_time = time.time() + 15
 
