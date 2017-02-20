@@ -60,7 +60,8 @@ class GE910(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def execute(self, command):
-        print("executing: %s" % command)
+        # print("executing: %s" % command)
+
         try:
             self.__serial.open(GE910.__SERIAL_TIMEOUT)
 
@@ -79,8 +80,7 @@ class GE910(object):
                     time.sleep(0.1)
 
                 lines = self.__read_text(terminators, command.timeout)
-
-                print("lines:%s" % lines)
+                # print("lines:%s" % lines)
 
                 response = ATResponse.construct(lines)
 

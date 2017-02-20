@@ -50,74 +50,65 @@ class Modem(object):
         # lock...
         self.start_tx()
 
-        print("pwmon: %s" % self.__io.pwmon)
-
-        print("1: %s" % self.__io.state)
+        # print("pwmon: %s" % self.__io.pwmon)
 
         # power...
         self.__io.power = IO.LOW
         self.__io.output_enable = IO.HIGH
-
-        print("2: %s" % self.__io.state)
-
         time.sleep(4)
 
         self.__ge910.setup_serial()
 
         # switch on...
         self.__io.on_off = IO.LOW
-        print("3: %s" % self.__io.state)
-
         time.sleep(6)
 
         self.__io.on_off = IO.HIGH
-        print("4: %s" % self.__io.state)
-
         time.sleep(1)
 
         # TODO: test pwmon
 
-        print("pwmon: %s" % self.__io.pwmon)
+        # print("pwmon: %s" % self.__io.pwmon)
 
         # LED...
         if not self.__use_led:
             return
 
-        print("setting LED...")
         cmd = ATCommand("AT#SLED=1", 1.0)
         self.execute(cmd)
 
 
     def switch_off(self):
-        print("pwmon: %s" % self.__io.pwmon)
+        # print("pwmon: %s" % self.__io.pwmon)
 
-        print("1: %s" % self.__io.state)
+        self.__ge910.setup_serial()
 
         # switch off...
-        self.__io.on_off = IO.LOW
+        cmd = ATCommand("AT#SHDN", 1.0)
+        self.execute(cmd)
 
-        print("2: %s" % self.__io.state)
+        end_time = time.time() + 15
 
-        time.sleep(4)
+        while True:
+            # print("pwmon: %s" % self.__io.pwmon)
 
-        self.__io.on_off = IO.HIGH
+            if not self.__io.pwmon:
+                break
 
-        print("3: %s" % self.__io.state)
+            if time.time() > end_time:
+                # print("HW_UNCONDITIONAL_SHUTDOWN")
+                break
 
-        time.sleep(2)
-
-        print("pwmon: %s" % self.__io.pwmon)
-
-        # TODO: test pwmon
+            time.sleep(1)
 
         # power...
+        self.__io.output_enable = IO.LOW
         self.__io.power = IO.HIGH
-
-        print("4: %s" % self.__io.state)
 
         # lock...
         self.__ge910.end_tx()
         self.end_tx()
+
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -134,6 +125,13 @@ class Modem(object):
 
     def end_tx(self):
         Lock.release(self.__lock_name(Modem.__LOCK_PWR))
+
+
+    # ----------------------------------------------------------------------------------------------------------------
+
+    @property
+    def power(self):
+        return self.__io.power == IO.LOW
 
 
     # ----------------------------------------------------------------------------------------------------------------
