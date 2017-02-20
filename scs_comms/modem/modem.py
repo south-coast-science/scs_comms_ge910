@@ -2,6 +2,13 @@
 Created on 3 Feb 2017
 
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
+
+useful commands:
+ifup ppp0
+ip a
+ip route
+
+ifdown ppp0
 """
 
 import time
