@@ -80,7 +80,7 @@ class GE910(object):
                     time.sleep(0.1)
 
                 lines = self.__read_text(terminators, command.timeout)
-                # print("lines:%s" % lines)
+                print("lines:%s" % lines)
 
                 response = ATResponse.construct(lines)
 
