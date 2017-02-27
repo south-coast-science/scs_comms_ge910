@@ -13,7 +13,6 @@ ifdown ppp0
 
 import time
 
-from scs_comms.modem.at_command import ATCommand
 from scs_comms.modem.ge910 import GE910
 from scs_comms.modem.io import IO
 
