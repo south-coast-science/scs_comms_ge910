@@ -6,7 +6,7 @@ Created on 20 Feb 2017
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 
 command line example:
-./scs_comms/modem_power.py -v 1
+./modem_power.py -v 1
 """
 
 import sys
