@@ -11,11 +11,11 @@ command line example:
 
 import sys
 
-from scs_core.data.json import JSONify
-from scs_core.sys.exception_report import ExceptionReport
-
 from scs_comms.modem.modem import Modem
 from scs_comms.cmd.cmd_power import CmdPower
+
+from scs_core.data.json import JSONify
+from scs_core.sys.exception_report import ExceptionReport
 
 from scs_host.bus.i2c import I2C
 from scs_host.sys.host import Host
@@ -44,6 +44,7 @@ if __name__ == '__main__':
 
         if cmd.verbose:
             print(modem, file=sys.stderr)
+            sys.stderr.flush()
 
 
         # ------------------------------------------------------------------------------------------------------------
