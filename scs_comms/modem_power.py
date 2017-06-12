@@ -40,7 +40,7 @@ if __name__ == '__main__':
         # ------------------------------------------------------------------------------------------------------------
         # resource...
 
-        modem = Modem(True)
+        modem = Modem()
 
         if cmd.verbose:
             print(modem, file=sys.stderr)
