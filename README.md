@@ -8,7 +8,7 @@ Communications abstractions for the South Coast Science Telit GE910 cellular mod
 * SCS host: scs_host_bbe or scs_host_bbe_southern
 
 
-**Typical PYTHONPATH:**
+**Example PYTHONPATH:**
 
 BeagleBone, in /root/.bashrc:
 
