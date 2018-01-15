@@ -1,6 +1,8 @@
 # scs_comms_ge910
 Communications abstractions for the South Coast Science Telit GE910 cellular modem board.
 
+_Contains library classes only._
+
 **Required libraries:** 
 
 * Third party: -
