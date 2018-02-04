@@ -1,13 +1,21 @@
 # scs_comms_ge910
 Communications abstractions for the South Coast Science Telit GE910 cellular modem board.
 
-_Contains library classes only._
+_Contains command line utilities and library classes._
+
 
 **Required libraries:** 
 
-* Third party: -
+* Third party: Adafruit_BBIO
 * SCS root: scs_core
 * SCS host: scs_host_bbe or scs_host_bbe_southern
+
+
+**Branches:**
+
+The stable branch of this repository is master. For deployment purposes, use:
+
+    git clone --branch=master https://github.com/south-coast-science/scs_comms_ge910.git
 
 
 **Example PYTHONPATH:**
