@@ -34,7 +34,7 @@ if __name__ == '__main__':
         cmd = CmdPower()
 
         if cmd.verbose:
-            print(cmd, file=sys.stderr)
+            print("modem_power: %s" % cmd, file=sys.stderr)
 
 
         # ------------------------------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ if __name__ == '__main__':
         modem = Modem()
 
         if cmd.verbose:
-            print(modem, file=sys.stderr)
+            print("modem_power: %s" % modem, file=sys.stderr)
             sys.stderr.flush()
 
 
