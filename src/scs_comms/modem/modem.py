@@ -44,7 +44,7 @@ class Modem(object):
         """
         Constructor
         """
-        self.__ge910 = GE910()
+        self.__module = GE910()
         self.__io = IO()
 
 
@@ -99,18 +99,18 @@ class Modem(object):
         self.__io.power = IO.HIGH
 
         # lock...
-        self.__ge910.end_tx()
+        self.__module.end_tx()
         self.end_tx()
 
 
     # ----------------------------------------------------------------------------------------------------------------
 
     def setup_serial(self):
-        self.__ge910.setup_serial()
+        self.__module.setup_serial()
 
 
     def execute(self, command):
-        return self.__ge910.execute(command)
+        return self.__module.execute(command)
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -133,4 +133,4 @@ class Modem(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     def __str__(self, *args, **kwargs):
-        return "Modem:{ge910:%s, io:%s}" % (self.__ge910, self.__io)
+        return "Modem:{module:%s, io:%s}" % (self.__module, self.__io)
