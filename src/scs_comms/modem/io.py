@@ -4,8 +4,6 @@ Created on 6 Feb 2017
 @author: Bruno Beloff (bruno.beloff@southcoastscience.com)
 """
 
-import os
-
 from scs_comms.modem.pca8574 import PCA8574
 
 from scs_host.lock.lock import Lock
@@ -42,13 +40,6 @@ class IO(object):
     # ----------------------------------------------------------------------------------------------------------------
 
     @classmethod
-    def filename(cls):
-        return os.path.join(Host.lock_dir(), cls.__FILENAME)
-
-
-    # ----------------------------------------------------------------------------------------------------------------
-
-    @classmethod
     def __lock_name(cls, func):
         return cls.__name__ + "-" + func
 
@@ -59,7 +50,7 @@ class IO(object):
         """
         Constructor
         """
-        self.__device = PCA8574.construct(IO.ADDR, self.filename())      # device is None if it can't be accessed
+        self.__device = PCA8574.construct(IO.ADDR, Host.lock_dir(), self.__FILENAME)
 
 
     # ----------------------------------------------------------------------------------------------------------------
