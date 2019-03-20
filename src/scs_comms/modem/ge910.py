@@ -19,13 +19,15 @@ class GE910(object):
     Telit GE910 GSM modem
     """
 
-    __LOCK_TX =             "TX"
-    __LOCK_TIMEOUT =        60.0
+    __LOCK_TX =                 "TX"
+    __LOCK_TIMEOUT =            60.0
 
-    __UART =                4
-    __BAUD_RATE =           115200
+    __EOL =                     "\r\n"
 
-    __SERIAL_TIMEOUT =      60.0
+    __UART =                    4
+    __BAUD_RATE =               115200
+
+    __SERIAL_TIMEOUT =          60.0
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -103,7 +105,7 @@ class GE910(object):
             if time.time() > end_time:
                 break
 
-            line = self.__serial.read_line(HostSerial.EOL, timeout)
+            line = self.__serial.read_line(eol=self.__EOL, timeout=timeout)
 
             if len(line) == 0:
                 continue
