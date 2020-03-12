@@ -6,7 +6,6 @@ _Contains command line utilities and library classes._
 
 **Required libraries:** 
 
-* Third party: Adafruit_BBIO
 * SCS root: scs_core
 * SCS host: scs_host_bbe or scs_host_bbe_southern
 
