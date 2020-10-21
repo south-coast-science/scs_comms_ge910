@@ -8,7 +8,7 @@ import os
 
 from collections import OrderedDict
 
-from scs_core.data.json import PersistentJSONable
+from scs_core.data.json import JSONReport
 
 from scs_host.bus.i2c import I2C
 from scs_host.sys.host import Host
@@ -72,15 +72,15 @@ class PCA8574(object):
 
     @property
     def state(self):
-        return PCA8574State.load_from_file(os.path.join(self.__directory, self.__file))
+        return PCA8574State.load(os.path.join(self.__directory, self.__file))
 
 
     @state.setter
     def state(self, byte):
-        state = PCA8574State.load_from_file(os.path.join(self.__directory, self.__file))
+        state = PCA8574State.load(os.path.join(self.__directory, self.__file))
 
         state.byte = byte
-        state.save_to_file(self.__directory, self.__file)
+        state.save(os.path.join(self.__directory, self.__file))
 
 
     # ----------------------------------------------------------------------------------------------------------------
@@ -91,15 +91,10 @@ class PCA8574(object):
 
 # --------------------------------------------------------------------------------------------------------------------
 
-class PCA8574State(PersistentJSONable):
+class PCA8574State(JSONReport):
     """
     classdocs
     """
-
-    @classmethod
-    def persistence_location(cls, _):
-        raise NotImplementedError()
-
 
     # ----------------------------------------------------------------------------------------------------------------
 
