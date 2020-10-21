@@ -25,7 +25,7 @@ try:
     io = IO()
     print(io)
 
-    state = PCA8574State.load_from_file(filename)
+    state = PCA8574State.load(filename)
     print(state)
 
     print("power:%s" % io.power)
@@ -33,7 +33,7 @@ try:
     io.power = not io.power
     print("power:%s" % io.power)
 
-    state = PCA8574State.load_from_file(filename)
+    state = PCA8574State.load(filename)
     print(state)
 
 finally:
