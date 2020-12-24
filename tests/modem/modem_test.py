@@ -12,13 +12,12 @@ import time
 from scs_comms.modem.at_command import ATCommand
 from scs_comms.modem.modem import Modem
 
-from scs_host.bus.i2c import I2C
-from scs_host.sys.host import Host
+from scs_host.bus.i2c import UtilityI2C
 
 
 # --------------------------------------------------------------------------------------------------------------------
 
-I2C.open(Host.I2C_SENSORS)
+UtilityI2C.open()
 
 print("modem...")
 modem = Modem()
@@ -66,4 +65,4 @@ finally:
     print(modem)
     print("-")
 
-    I2C.close()
+    UtilityI2C.close()

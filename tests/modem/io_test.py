@@ -11,7 +11,7 @@ import os
 from scs_comms.modem.io import IO
 from scs_comms.modem.pca8574 import PCA8574State
 
-from scs_host.bus.i2c import I2C
+from scs_host.bus.i2c import UtilityI2C
 from scs_host.sys.host import Host
 
 
@@ -19,7 +19,7 @@ from scs_host.sys.host import Host
 
 filename = os.path.join(Host.lock_dir(), "dfe_io.json")
 
-I2C.open(Host.I2C_SENSORS)
+UtilityI2C.open()
 
 try:
     io = IO()
@@ -37,4 +37,4 @@ try:
     print(state)
 
 finally:
-    I2C.close()
+    UtilityI2C.close()
