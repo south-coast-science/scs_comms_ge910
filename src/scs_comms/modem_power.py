@@ -17,14 +17,14 @@ from scs_comms.cmd.cmd_power import CmdPower
 from scs_core.data.json import JSONify
 from scs_core.sys.exception_report import ExceptionReport
 
-from scs_host.bus.i2c import UtilityI2C
+from scs_host.bus.i2c import I2C
 
 
 # --------------------------------------------------------------------------------------------------------------------
 
 if __name__ == '__main__':
 
-    UtilityI2C.open()
+    I2C.Utilities.open()
 
     try:
         # ------------------------------------------------------------------------------------------------------------
@@ -65,4 +65,4 @@ if __name__ == '__main__':
         print(JSONify.dumps(ExceptionReport.construct(ex)), file=sys.stderr)
 
     finally:
-        UtilityI2C.close()
+        I2C.Utilities.close()

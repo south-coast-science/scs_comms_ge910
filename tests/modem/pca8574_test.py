@@ -11,13 +11,13 @@ import sys
 from scs_comms.modem.io import IO
 from scs_comms.modem.pca8574 import PCA8574
 
-from scs_host.bus.i2c import UtilityI2C
+from scs_host.bus.i2c import I2C
 from scs_host.sys.host import Host
 
 
 # --------------------------------------------------------------------------------------------------------------------
 
-UtilityI2C.open()
+I2C.Utilities.open()
 
 try:
     io = PCA8574.construct(IO.ADDR, Host.lock_dir(), "dfe_io.json")
@@ -41,4 +41,4 @@ except KeyboardInterrupt:
     print("pca8574_test: terminated", file=sys.stderr)
 
 finally:
-    UtilityI2C.close()
+    I2C.Utilities.close()
