@@ -50,22 +50,22 @@ class PCA8574(object):
 
     def read(self):
         try:
-            I2C.start_tx(self.__addr)
-            byte = I2C.read(1)
+            I2C.Utilities.start_tx(self.__addr)
+            byte = I2C.Utilities.read(1)
 
         finally:
-            I2C.end_tx()
+            I2C.Utilities.end_tx()
 
         return byte
 
 
     def write(self, byte):
         try:
-            I2C.start_tx(self.__addr)
-            I2C.write(byte)
+            I2C.Utilities.start_tx(self.__addr)
+            I2C.Utilities.write(byte)
 
         finally:
-            I2C.end_tx()
+            I2C.Utilities.end_tx()
 
 
     # ----------------------------------------------------------------------------------------------------------------
