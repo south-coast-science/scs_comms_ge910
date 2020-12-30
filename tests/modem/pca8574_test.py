@@ -17,7 +17,7 @@ from scs_host.sys.host import Host
 
 # --------------------------------------------------------------------------------------------------------------------
 
-I2C.open(Host.I2C_SENSORS)
+I2C.Utilities.open()
 
 try:
     io = PCA8574.construct(IO.ADDR, Host.lock_dir(), "dfe_io.json")
@@ -32,7 +32,6 @@ try:
     byte = io.read()
     print("byte:%02x" % byte)
 
-
     io.write(0xff)
 
     byte = io.read()
@@ -42,4 +41,4 @@ except KeyboardInterrupt:
     print("pca8574_test: terminated", file=sys.stderr)
 
 finally:
-    I2C.close()
+    I2C.Utilities.close()
